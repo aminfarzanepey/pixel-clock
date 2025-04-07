@@ -14,8 +14,9 @@ function updateClock() {
     }
 
 
-    const formatted = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
-    document.getElementById("clock").textContent = formatted;
+    document.getElementById("hours").textContent = pad(hours);
+    document.getElementById("minutes").textContent = pad(minutes);
+    document.getElementById("seconds").textContent = pad(seconds);
 }
 
 function pad(num) {
