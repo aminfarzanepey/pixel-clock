@@ -1,11 +1,24 @@
 const formatBtn = document.getElementById("format-btn");
 const themeBtn = document.getElementById("theme-btn");
-let is24Hour = true;
+
+let is24Hour = localStorage.getItem("is24Hour");
+let isDarkTheme = localStorage.getItem("isDarkTheme") === "true";
+
+if (is24Hour === null) {
+    is24Hour = true;
+    localStorage.setItem("is24Hour", is24Hour);
+} else {
+    is24Hour = is24Hour === "true"; // it says is24Hour = false(for exmpl) === "true" => return false
+}
+
+if (isDarkTheme) {
+    document.body.classList.add("dark");
+}
 
 function updateClock() {
     const now = new Date();
     const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-    const formattedDate = now.toLocaleDateString('en-US' ,options);
+    const formattedDate = now.toLocaleDateString('en-US', options);
 
     let hours = now.getHours();
     let minutes = now.getMinutes();
@@ -33,9 +46,12 @@ updateClock();
 
 formatBtn.addEventListener("click", () => {
     is24Hour = !is24Hour;
+    localStorage.setItem("is24Hour", is24Hour);
     updateClock();
 })
 
 themeBtn.addEventListener("click", () => {
     document.body.classList.toggle("dark");
+    isDarkTheme = document.body.classList.contains("dark");
+    localStorage.setItem("isDarkTheme", isDarkTheme);
 })
