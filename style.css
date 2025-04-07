@@ -10,18 +10,27 @@ body {
     transition: 0.3s;
 }
 
-body.dark{
+body.dark {
     background-color: #111;
     color: #eee;
 }
 
 
-#clock{
+#clock {
     font-size: 4rem;
     letter-spacing: 3px;
 }
 
-.btn{
+.date-display {
+    margin-top: 20px;
+    color: #888;
+}
+
+body.dark .date-display{
+    color: #aaa;
+}
+
+.btn {
     border: none;
     outline: none;
     border-radius: 25px;
@@ -33,12 +42,20 @@ body.dark{
     cursor: pointer;
 }
 
-.blinker{
+.blinker {
     animation: blink 1s steps(2, start) infinite;
 }
 
 @keyframes blink {
-    0% { opacity: 1; }
-    50% {opacity: 0; }
-    100%{ opacity: 1; }
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
