@@ -1,3 +1,11 @@
+:root{
+    --dark-bg: #111;
+    --light-text: #eee;
+
+    --light-bg: #fefefe;
+    --dark-text: #222;
+}
+
 body {
     margin: 0;
     font-family: "Press Start 2P";
@@ -5,14 +13,20 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: #fefefe;
-    color: #222;
+    background: var(--light-bg);
+    color: var(--dark-text);
     transition: 0.3s;
 }
 
 body.dark {
-    background-color: #111;
-    color: #eee;
+    background-color: var(--dark-bg);
+    color: var(--light-text);
+}
+
+.clock-container{
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: 25px;
 }
 
 
@@ -46,6 +60,10 @@ body.dark .date-display{
     animation: blink 1s steps(2, start) infinite;
 }
 
+.pixel-effect{
+    animation: pixel-glitch 0.4s ease;
+}
+
 @keyframes blink {
     0% {
         opacity: 1;
@@ -58,4 +76,12 @@ body.dark .date-display{
     100% {
         opacity: 1;
     }
+}
+
+@keyframes pixel-glitch {
+    0% {filter: contrast(1.5) brightness(1.2); transform: scale(1);}
+    25% {filter: contrast(2) brightness(0.8); transform: scale(1.02);}
+    0% {filter: contrast(1) brightness(1.5); transform: scale(0.98);}
+    0% {filter: contrast(2) brightness(0.9); transform: scale(1.01);}
+    0% {filter: none; transform: scale(1);}
 }

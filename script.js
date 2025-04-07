@@ -1,3 +1,4 @@
+const clockContainer = document.querySelector(".clock-container");
 const formatBtn = document.getElementById("format-btn");
 const themeBtn = document.getElementById("theme-btn");
 
@@ -54,4 +55,9 @@ themeBtn.addEventListener("click", () => {
     document.body.classList.toggle("dark");
     isDarkTheme = document.body.classList.contains("dark");
     localStorage.setItem("isDarkTheme", isDarkTheme);
+
+    clockContainer.classList.add("pixel-effect");
+    setTimeout(() => {
+       clockContainer.classList.remove("pixel-effect");
+    }, 400);
 })
