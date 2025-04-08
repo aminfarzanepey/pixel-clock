@@ -1,9 +1,9 @@
-:root{
-    --dark-bg: #111;
-    --light-text: #eee;
-
-    --light-bg: #fefefe;
-    --dark-text: #222;
+:root {
+    --bg: #fefefe;
+    --text: #222;
+    --date: #888;
+    --btn-border: black;
+    --btn-shadow: #00000038;
 }
 
 body {
@@ -13,17 +13,23 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: var(--light-bg);
-    color: var(--dark-text);
+    background: var(--bg);
+    color: var(--text);
     transition: 0.3s;
 }
 
 body.dark {
-    background-color: var(--dark-bg);
-    color: var(--light-text);
+    --bg: #111;
+    --text: #eee;
+    --date: #aaa;
+    --btn-border: white;
+    --btn-shadow: rgb(82, 82, 82);
+
+    background-color: var(--bg);
+    color: var(--text);
 }
 
-.clock-container{
+.clock-container {
     text-align: center;
     padding: 1.5rem;
     border-radius: 25px;
@@ -37,30 +43,34 @@ body.dark {
 
 .date-display {
     margin-top: 20px;
-    color: #888;
-}
-
-body.dark .date-display{
-    color: #aaa;
+    color: var(--date);
 }
 
 .btn {
+    color: inherit;
     border: none;
     outline: none;
-    border-radius: 25px;
     font-family: inherit;
     background-color: #e67e22;
     margin: 1rem;
     padding: 0.5rem 1.2rem;
     font-size: 1rem;
     cursor: pointer;
+    box-shadow: 0px 5px var(--btn-border),
+        0px -5px var(--btn-border),
+        5px 0px var(--btn-border),
+        -5px 0px var(--btn-border),
+        0px 10px var(--btn-shadow),
+        5px 5px var(--btn-shadow),
+        -5px 5px var(--btn-shadow),
+        inset 0px 5px #ffffff36;
 }
 
 .blinker {
     animation: blink 1s steps(2, start) infinite;
 }
 
-.pixel-effect{
+.pixel-effect {
     animation: pixel-glitch 0.4s ease;
 }
 
@@ -79,9 +89,28 @@ body.dark .date-display{
 }
 
 @keyframes pixel-glitch {
-    0% {filter: contrast(1.5) brightness(1.2); transform: scale(1);}
-    25% {filter: contrast(2) brightness(0.8); transform: scale(1.02);}
-    0% {filter: contrast(1) brightness(1.5); transform: scale(0.98);}
-    0% {filter: contrast(2) brightness(0.9); transform: scale(1.01);}
-    0% {filter: none; transform: scale(1);}
+    0% {
+        filter: contrast(1.5) brightness(1.2);
+        transform: scale(1);
+    }
+
+    25% {
+        filter: contrast(2) brightness(0.8);
+        transform: scale(1.02);
+    }
+
+    0% {
+        filter: contrast(1) brightness(1.5);
+        transform: scale(0.98);
+    }
+
+    0% {
+        filter: contrast(2) brightness(0.9);
+        transform: scale(1.01);
+    }
+
+    0% {
+        filter: none;
+        transform: scale(1);
+    }
 }
