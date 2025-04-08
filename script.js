@@ -1,3 +1,5 @@
+const clickSound = new Audio("./assets/sounds/beep.mp3");
+
 const clockContainer = document.querySelector(".clock-container");
 const formatBtn = document.getElementById("format-btn");
 const themeBtn = document.getElementById("theme-btn");
@@ -41,6 +43,13 @@ function pad(num) {
     return num.toString().padStart(2, '0');
 }
 
+function playClickSound() {
+    clickSound.currentTime = 0;
+    clickSound.play();
+    console.log("called");
+
+}
+
 setInterval(updateClock, 1000);
 
 updateClock();
@@ -61,3 +70,8 @@ themeBtn.addEventListener("click", () => {
        clockContainer.classList.remove("pixel-effect");
     }, 400);
 })
+
+
+//play sound when click
+formatBtn.addEventListener("click",playClickSound);
+themeBtn.addEventListener("click",playClickSound);
