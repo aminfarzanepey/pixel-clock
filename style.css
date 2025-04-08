@@ -22,7 +22,7 @@ body.dark {
     --bg: #111;
     --text: #eee;
     --date: #aaa;
-    --btn-border: white;
+    --btn-border: #eee;
     --btn-shadow: rgb(82, 82, 82);
 
     background-color: var(--bg);
@@ -65,6 +65,16 @@ body.dark {
         -5px 5px var(--btn-shadow),
         inset 0px 5px #ffffff36;
 }
+
+.btn:active {
+    transform: translateY(5px);
+    box-shadow: 0px 5px var(--btn-border),
+        0px -5px var(--btn-border),
+        5px 0px var(--btn-border),
+        -5px 0px var(--btn-border),
+        inset 0px 5px #00000038;
+}
+
 
 .blinker {
     animation: blink 1s steps(2, start) infinite;
