@@ -48,6 +48,11 @@ body.dark {
 
 .alarm-container{
     text-align: center;
+    display: none;
+}
+
+.show{
+    display: block;
 }
 
 .alarm-container input{
@@ -93,6 +98,10 @@ body.dark {
         5px 0px var(--btn-border),
         -5px 0px var(--btn-border),
         inset 0px 5px #00000038;
+}
+
+#stop-alarm-btn{
+    display: none;
 }
 
 
