@@ -10,6 +10,7 @@ body {
     margin: 0;
     font-family: "Press Start 2P";
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -35,7 +36,6 @@ body.dark {
     border-radius: 25px;
 }
 
-
 #clock {
     font-size: 4rem;
     letter-spacing: 3px;
@@ -44,6 +44,26 @@ body.dark {
 .date-display {
     margin-top: 20px;
     color: var(--date);
+}
+
+.alarm-container{
+    text-align: center;
+}
+
+.alarm-container input{
+    font-family: inherit;
+    font-size: 1.2rem;
+    padding: 1rem 2rem;
+    text-align: center;
+    border: 0;
+    box-shadow: 0px 5px var(--btn-border),
+        0px -5px var(--btn-border),
+        5px 0px var(--btn-border),
+        -5px 0px var(--btn-border),
+        0px 10px var(--btn-shadow),
+        5px 5px var(--btn-shadow),
+        -5px 5px var(--btn-shadow),
+        inset 0px 5px #ffffff36;
 }
 
 .btn {

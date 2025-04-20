@@ -1,11 +1,15 @@
+//sounds
+const alarmSound = new Audio("./assets/sounds/alarm.mp3")
 const clickSound = new Audio("./assets/sounds/beep.mp3");
 
 const clockContainer = document.querySelector(".clock-container");
 const formatBtn = document.getElementById("format-btn");
 const themeBtn = document.getElementById("theme-btn");
+const setAlarmBtn = document.getElementById("set-alarm-btn");
 
 let is24Hour = localStorage.getItem("is24Hour");
 let isDarkTheme = localStorage.getItem("isDarkTheme") === "true";
+let alarmTime = null;
 
 if (is24Hour === null) {
     is24Hour = true;
@@ -26,8 +30,10 @@ function updateClock() {
     let hours = now.getHours();
     let minutes = now.getMinutes();
     let seconds = now.getSeconds();
+    let ampm = "";
 
     if (!is24Hour) {
+        ampm = hours >= 12 ? "PM" : "AM";
         hours = hours % 12 || 12;
     }
 
@@ -35,6 +41,7 @@ function updateClock() {
     document.getElementById("hours").textContent = pad(hours);
     document.getElementById("minutes").textContent = pad(minutes);
     document.getElementById("seconds").textContent = pad(seconds);
+    document.getElementById("ampm").textContent = ampm; //show AM/PM
 
     document.getElementById("date").textContent = formattedDate;
 }
@@ -46,8 +53,6 @@ function pad(num) {
 function playClickSound() {
     clickSound.currentTime = 0;
     clickSound.play();
-    console.log("called");
-
 }
 
 setInterval(updateClock, 1000);
@@ -67,11 +72,31 @@ themeBtn.addEventListener("click", () => {
 
     clockContainer.classList.add("pixel-effect");
     setTimeout(() => {
-       clockContainer.classList.remove("pixel-effect");
+        clockContainer.classList.remove("pixel-effect");
     }, 400);
 })
 
+setAlarmBtn.addEventListener("click", () => {
+    const alarmHour = document.getElementById("alarm-hour").value.padStart(2, "0");
+    const alarmMinute = document.getElementById("alarm-minute").value.padStart(2, "0");
+    alarmTime = `${alarmHour}:${alarmMinute}`;
+    document.getElementById("alarm-status").textContent = `Alarm set for ${alarmTime}`;
+
+});
+
+setInterval(() => {
+    const now = new Date();
+    const currentTime = now.getHours().toString().padStart(2, "0") + ":" +
+    now.getMinutes().toString().padStart(2, "0");
+
+    if (alarmTime === currentTime) {
+        alarmSound.play();
+        document.getElementById("alarm-status").textContent = "RING RING!";
+        alarmTime = null;
+    }
+},1000);
+
 
 //play sound when click
-formatBtn.addEventListener("click",playClickSound);
-themeBtn.addEventListener("click",playClickSound);
+formatBtn.addEventListener("click", playClickSound);
+themeBtn.addEventListener("click", playClickSound);

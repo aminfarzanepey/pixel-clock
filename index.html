@@ -20,14 +20,25 @@
             <span id="minutes">--</span>
             <span class="blinker">:</span>
             <span id="seconds">--</span>
+            <span id="ampm"></span>
         </h1>
+
 
         <p id="date" class="date-display">--</p>
 
         <div class="btn-container">
             <button class="btn" id="theme-btn">theme</button>
             <button class="btn" id="format-btn">format</button>
+            <button class="btn" id="alarm-btn">Alarm</button>
         </div>
+    </div>
+
+    <div class="alarm-container">
+        <h2>Set Alarm (24hour)</h2>
+        <input type="number" id="alarm-hour" min="0" max="23" placeholder="HH">
+        <input type="number" id="alarm-minute" min="0" max="59" placeholder="MM">
+        <button class="btn" id="set-alarm-btn">Set</button>
+        <p id="alarm-status">No Alarm Set</p>
     </div>
 
     <script src="./script.js"></script>
