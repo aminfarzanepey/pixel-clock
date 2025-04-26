@@ -51,10 +51,6 @@ body.dark {
     display: none;
 }
 
-.show{
-    display: block;
-}
-
 .alarm-container input{
     font-family: inherit;
     font-size: 1.2rem;
@@ -104,6 +100,25 @@ body.dark {
     display: none;
 }
 
+.stopwatch-container{
+    display: none;
+    text-align: center;
+    margin-top: 3rem;
+}
+
+#stopwatch{
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.stopwatch-btns .btn{
+    margin: 0.5rem;
+}
+
+
+.show{
+    display: block;
+}
 
 .blinker {
     animation: blink 1s steps(2, start) infinite;

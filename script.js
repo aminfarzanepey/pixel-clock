@@ -6,13 +6,23 @@ const clickSound = new Audio("./assets/sounds/beep.mp3");
 const clockContainer = document.querySelector(".clock-container");
 const formatBtn = document.getElementById("format-btn");
 const themeBtn = document.getElementById("theme-btn");
+
 const setAlarmBtn = document.getElementById("set-alarm-btn");
 const stopAlarmBtn = document.getElementById("stop-alarm-btn");
 const showAlarmBtn = document.getElementById("alarm-btn");
 
+const stopwatchDisplay = document.getElementById("stopwatch");
+const startBtn = document.getElementById("start-btn");
+const pauseBtn = document.getElementById("pause-btn");
+const resetBtn = document.getElementById("reset-btn");
+const showStopwatchBtn = document.getElementById("stopwatch-btn");
+
 let is24Hour = localStorage.getItem("is24Hour");
 let isDarkTheme = localStorage.getItem("isDarkTheme") === "true";
 let alarmTime = null;
+let stopwatchInterval;
+let elapsedTime = 0;
+let isRunning = false;
 
 //checking from localStorage
 if (is24Hour === null) {
@@ -66,7 +76,22 @@ function playClickSound() {
 setInterval(updateClock, 1000);
 updateClock();
 
-//#region event listeners
+//stopwatch
+function formatTime(ms) {
+    const hours = Math.floor(ms / 3600000);
+    const minutes = Math.floor((ms % 3600000) / 60000);
+    const seconds = Math.floor((ms % 60000) / 1000);
+    const milliseconds = ms % 1000;
+
+    return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}:${milliseconds.toString().padStart(3, "0")}`;
+}
+
+function updateStopwatch() {
+    elapsedTime += 10; // Update every 10ms
+    stopwatchDisplay.textContent = formatTime(elapsedTime);
+}
+
+//#region event listeners---------------------------------------
 
 // 24/12 format btn event
 formatBtn.addEventListener("click", () => {
@@ -123,6 +148,40 @@ showAlarmBtn.addEventListener("click", () => {
     document.getElementById("alarm-container").classList.add("pixel-effect");
 })
 
+//stopwatch event listenners
+startBtn.addEventListener("click", () => {
+    if (!isRunning) {
+        isRunning = true;
+        stopwatchInterval = setInterval(updateStopwatch, 10);
+        stopwatchDisplay.classList.add("pixel-effect");
+        setTimeout(() => stopwatchDisplay.classList.remove("pixel-effect"), 400);
+    }
+});
+
+pauseBtn.addEventListener("click", () => {
+    if (isRunning) {
+        isRunning = false;
+        clearInterval(stopwatchInterval);
+    }
+})
+
+resetBtn.addEventListener("click", () => {
+    isRunning = false;
+    clearInterval(stopwatchInterval);
+    elapsedTime = 0;
+    stopwatchDisplay.textContent = "00:00:00:000";
+
+    stopwatchDisplay.classList.add("pixel-effect");
+    setTimeout(() => stopwatchDisplay.classList.remove("pixel-effect"), 400);
+})
+
+showStopwatchBtn.addEventListener("click", () => {
+    stc = document.querySelector(".stopwatch-container");
+    console.log(stc);
+
+    document.querySelector(".stopwatch-container").classList.toggle("show");
+    document.querySelector(".stopwatch-container").classList.add("pixel-effect");
+})
 
 //play sound when click
 formatBtn.addEventListener("click", playClickSound);
@@ -130,5 +189,10 @@ themeBtn.addEventListener("click", playClickSound);
 setAlarmBtn.addEventListener("click", playClickSound);
 stopAlarmBtn.addEventListener("click", playClickSound);
 showAlarmBtn.addEventListener("click", playClickSound);
+
+startBtn.addEventListener("click", playClickSound);//stopwatch btns
+pauseBtn.addEventListener("click", playClickSound);
+resetBtn.addEventListener("click", playClickSound);
+showStopwatchBtn.addEventListener("click", playClickSound);
 
 //#endregion
