@@ -4,6 +4,8 @@
     --date: #888;
     --btn-border: black;
     --btn-shadow: #00000038;
+
+    --pixel-size: 2;
 }
 
 body {
@@ -124,6 +126,23 @@ body.dark {
     margin: 0.5rem;
 }
 
+.character{
+    width: calc(60px * var(--pixel-size));
+    height: calc(55px * var(--pixel-size));
+    overflow: hidden;
+    position: relative;
+}
+
+.sprite-sheet{
+    width: calc(250px * var(--pixel-size));
+    height: calc(250px * var(--pixel-size));
+    animation: move 1s steps(4) infinite;
+    position: absolute;
+}
+
+.face-right{
+    top: calc(-130px*var(--pixel-size));
+}
 
 .show{
     display: block;
@@ -175,5 +194,14 @@ body.dark {
     0% {
         filter: none;
         transform: scale(1);
+    }
+}
+
+@keyframes move{
+    from{
+        transform: translate3d(0px,0,0);
+    }
+    to{
+        transform: translate3d(-100%,0,0);
     }
 }
