@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>digital clock</title>
+    <link rel="shortcut icon" href="./assets/images/clock.png" type="image/x-icon">
     <!-- font -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
@@ -31,6 +32,7 @@
             <button class="btn" id="format-btn">format</button>
             <button class="btn" id="alarm-btn">Alarm</button>
             <button class="btn" id="stopwatch-btn">Stopwatch</button>
+            <button class="btn" id="timer-btn">Timer</button>
         </div>
     </div>
 
@@ -50,6 +52,17 @@
             <button class="btn" id="pause-btn">Pause</button>
             <button class="btn" id="reset-btn">Reset</button>
         </div>
+    </div>
+
+    <div class="timer-container">
+        <h2>Set Timer</h2>
+        <input type="number" id="timer-hour" min="0" placeholder="HH">
+        <input type="number" id="timer-minute" min="0" max="60" placeholder="MM">
+        <input type="number" id="timer-second" min="0" max="60" placeholder="SS">
+
+        <button class="btn" id="timer-start">Start</button>
+        <button class="btn" id="timer-stop">Stop</button>
+        <button class="btn" id="timer-reset">Reset</button>
     </div>
 
     <script src="./script.js"></script>

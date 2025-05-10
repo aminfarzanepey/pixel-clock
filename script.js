@@ -91,6 +91,32 @@ function updateStopwatch() {
     stopwatchDisplay.textContent = formatTime(elapsedTime);
 }
 
+//timer------------------------------------------------
+const showTimerBtn = document.getElementById("timer-btn");
+
+const timerStartBtn = document.getElementById("timer-start");
+const timerStopBtn = document.getElementById("timer-stop");
+const timerResetBtn = document.getElementById("timer-reset");
+
+const timerHourInput = document.getElementById("timer-hour");
+const timerMinuteInput = document.getElementById("timer-minute");
+const timerSecondInput = document.getElementById("timer-second");
+
+let timerInterval;
+let totalSeconds = 0;
+let initialTotalSeconds = 0;
+
+//HH:MM:SS
+function displayTimer(seconds) {
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+
+    timerHourInput.value = pad(hrs);
+    timerMinuteInput.value = pad(mins);
+    timerSecondInput.value = pad(secs);
+}
+
 //#region event listeners---------------------------------------
 
 // 24/12 format btn event
@@ -183,6 +209,52 @@ showStopwatchBtn.addEventListener("click", () => {
     document.querySelector(".stopwatch-container").classList.add("pixel-effect");
 })
 
+//timer event listenners
+timerStartBtn.addEventListener("click", () => {
+    if (timerInterval) return; // if timer runnig dont run again
+
+    const h = parseInt(timerHourInput.value) || 0;
+    const m = parseInt(timerMinuteInput.value) || 0;
+    const s = parseInt(timerSecondInput.value) || 0;
+
+    totalSeconds = h * 3600 + m * 60 + s;
+    if (totalSeconds <= 0) return;
+
+    initialTotalSeconds = totalSeconds;
+
+    timerInterval = setInterval(() => {
+        if (totalSeconds <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            alarmSound.play();
+            return;
+        }
+        totalSeconds--;
+        displayTimer(totalSeconds);
+    }, 1000);
+});
+
+timerStopBtn.addEventListener("click", () => {
+    clearInterval(timerInterval);
+    timerInterval = null;
+})
+
+timerResetBtn.addEventListener("click", () => {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    totalSeconds = initialTotalSeconds;
+    displayTimer(totalSeconds);
+});
+
+showTimerBtn.addEventListener("click", () => {
+    document.querySelector(".timer-container").classList.toggle("show");
+    document.querySelector(".timer-container").classList.add("pixel-effect");
+
+    setTimeout(() => {
+        document.querySelector(".timer-container").classList.remove("pixel-effect");
+    }, 400);
+})
+
 //play sound when click
 formatBtn.addEventListener("click", playClickSound);
 themeBtn.addEventListener("click", playClickSound);
@@ -194,5 +266,10 @@ startBtn.addEventListener("click", playClickSound);//stopwatch btns
 pauseBtn.addEventListener("click", playClickSound);
 resetBtn.addEventListener("click", playClickSound);
 showStopwatchBtn.addEventListener("click", playClickSound);
+
+timerStartBtn.addEventListener("click", playClickSound);//timer btns
+timerStopBtn.addEventListener("click", playClickSound);
+timerResetBtn.addEventListener("click", playClickSound);
+showTimerBtn.addEventListener("click", playClickSound);
 
 //#endregion
